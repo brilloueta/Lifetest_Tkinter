@@ -7,7 +7,8 @@ class App:
     def __init__(self, master):
 
         #Valeur compteurs par défaut
-        counter_value = int()
+        global counter_value
+        counter_value = int() #faut il utiliser une variable globale? comment ?
         counter_value = 5234
         
         qty_cycles=96
@@ -126,7 +127,7 @@ class App:
         button6M= Button(cadre1B, text="-")
         button6M.grid (row=8, column =3,padx=10, pady=5)
 
-        value1=Label(cadre1B, textvariable = str(counter_value)) # passage en textvariable à revoir
+        value1=Label(cadre1B, textvariable = str(counter_value))
         value1.grid(row=1, column=4,padx=10, pady=5, sticky=E)
         value2=Label(cadre1B, text = qty_cycles)
         value2.grid(row=3, column=4,padx=10, pady=5, sticky=E)
@@ -145,7 +146,8 @@ class App:
 
     def button1P_action (self):
         counter_value += 1
-        
+        value1.config(text=str(counter_value))
+        value1.grid(row=1, column=4,padx=10, pady=5, sticky=E)
 
 root = Tk()
 app = App(root)
