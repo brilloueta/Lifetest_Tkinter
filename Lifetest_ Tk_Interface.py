@@ -69,12 +69,9 @@ def load_app_state(file_path):
 #Prévoir une classe pour l'interface Tkinter
     #Sur appui départ cycle => lancer déroulement du programme
 
-#Prévoir une classe pour le déroulement du programme
-    
-class App(object):
-    def __init__(self, log_file, app_state_file):
-        self.log_file = log_file
-        self.app_state_file = app_state_file
+class Interface(object):
+
+
 
         #Dimensions des cadres
         Wf=900
@@ -205,18 +202,6 @@ class App(object):
         value1.config(text=str(counter_val))
         value1.grid(row=1, column=4,padx=10, pady=5, sticky=E)
 
-    def get_cycles(self):
-        return load_app_state(self.app_state_file)['cycles']
-
-    def set_cycles(self, cycle):
-        dump_app_state(self.app_state_file, cycles=cycle)
-
-    def get_pas_incr(self):
-        return load_app_state(self.app_state_file)['pas_incr']
-
-    def set_pas_incr(self, pas_incr):
-        dump_app_state(self.app_state_file, pas_incr=pas_incr)
-
     def get_counter_val(self):
         return load_app_state(self.app_state_file)['counter_val']
 
@@ -253,6 +238,25 @@ class App(object):
     def set_timer_CHARGE(self, pas_incr):
         dump_app_state(self.app_state_file, timer_CHARGE=timer_CHARGE)
 
+
+#Prévoir une classe pour le déroulement du programme    
+class App(object):
+    def __init__(self, log_file, app_state_file):
+        self.log_file = log_file
+        self.app_state_file = app_state_file
+
+    def get_cycles(self):
+        return load_app_state(self.app_state_file)['cycles']
+
+    def set_cycles(self, cycle):
+        dump_app_state(self.app_state_file, cycles=cycle)
+
+    def get_pas_incr(self):
+        return load_app_state(self.app_state_file)['pas_incr']
+
+    def set_pas_incr(self, pas_incr):
+        dump_app_state(self.app_state_file, pas_incr=pas_incr)
+
     def log_to_csv(self, cycles):
         log_to_csv(self.log_file, cycles)
 
@@ -267,12 +271,10 @@ def log_time():
 def arduino_idle():
     GPIO.output(25,GPIO.LOW)
 
-
 def pause_board(msg, delay=15):
     print(msg, time.strftime('%d/%m/%y %H:%M:%S', time.localtime(date_sec_epoch())))
     arduino_idle()
     time.sleep(delay)
-
 
 def log_to_csv(file_path, cycles):
     with open(file_path, "a") as fd:
